@@ -1,4 +1,4 @@
-Simulate mock chatbot as A2A Agent with simple HTTP
+# Simulate mock chatbot as A2A Agent with simple HTTP
 
 Expose endpoints
 - agent: returns agent card for discovery
