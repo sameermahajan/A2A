@@ -8,3 +8,6 @@ Expose endpoints
 A2A client to interact with above agent
 - polls for result
 - parses response
+
+
+https://youtu.be/zsGC6w_7jdc
