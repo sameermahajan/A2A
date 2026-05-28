@@ -1,3 +1,5 @@
+# python -m uvicorn mock_chatbot_agent:app --port 8001
+#
 # POST task like
 # {
 #  "capability": "chat",
