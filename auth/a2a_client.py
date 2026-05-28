@@ -1,9 +1,14 @@
 import requests
+import time
 
 BASE_URL = "http://localhost:8001"
 
-API_KEY = "Sameer-TalentNovo"
-# API_KEY = "Wrong-Key"
+API_KEY = "super-secret-key"
+
+HEADERS = {
+    "Authorization": f"Bearer {API_KEY}"
+}
+
 
 # ----------------------------
 # Discovery
@@ -18,9 +23,9 @@ print(card.json())
 
 
 # ----------------------------
-# Invocation
+# Create task
 # ----------------------------
-print("\n=== INVOCATION ===")
+print("\n=== CREATE TASK ===")
 
 payload = {
     "capability": "chat",
@@ -32,9 +37,38 @@ payload = {
 response = requests.post(
     f"{BASE_URL}/tasks",
     json=payload,
-    headers={
-        "Authorization": f"Bearer {API_KEY}"
-    }
+    headers=HEADERS
 )
 
-print(response.json())
+task_data = response.json()
+
+print(task_data)
+
+task_id = task_data["task_id"]
+
+
+# ----------------------------
+# Poll result
+# ----------------------------
+print("\n=== POLLING ===")
+
+while True:
+
+    r = requests.get(
+        f"{BASE_URL}/tasks/{task_id}",
+        headers=HEADERS
+    )
+
+    data = r.json()
+
+    print(data)
+
+    if data["status"] == "completed":
+        break
+
+    time.sleep(1)
+
+
+print("\n=== FINAL RESPONSE ===")
+
+print(data["output"]["reply"])
